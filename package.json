@@ -7,7 +7,8 @@
       "build": "rimraf dist && webpack --config config/webpack.config.js --mode=production",
       "test": "mochapack --webpack-config config/webpack-test.config.js --require src/tests/setup.js src/tests/**/*.spec.js",
       "test:watch": "mochapack --watch --webpack-config config/webpack-test.config.js --require src/tests/setup.js src/tests/**/*.spec.js",
-      "precommit": "lint-staged"
+      "precommit": "lint-staged",
+      "format": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,vue,md}'"
     },
     "dependencies": {
       "vue": "^2.6.11"
