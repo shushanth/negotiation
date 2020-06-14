@@ -32,7 +32,7 @@ export default {
   .title {
     &_color {
       &--primary {
-        color: $styles-color-blue--orange;
+        color: $styles-color-orange;
       }
     }
   }

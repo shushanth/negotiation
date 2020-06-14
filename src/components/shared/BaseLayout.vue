@@ -1,5 +1,10 @@
 <template>
-  <base-header level="h2" theme="primary" :headerTitle="headerTitle" />
+  <div class="layout_container">
+    <base-header level="h2" theme="primary" :headerTitle="headerTitle" />
+    <div class="layout_body">
+      <slot />
+    </div>
+  </div>
 </template>
 <script>
 import Vue from 'vue';
@@ -15,4 +20,17 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@import 'styles/base.scss';
+.layout {
+  &_container {
+    @include styles-flex(column);
+  }
+
+  &_body {
+    border: 1px solid;
+    margin: 1rem 2rem;
+    height: 100vh;
+  }
+}
+</style>

@@ -42,12 +42,15 @@ ol {
 }
 
 button,
-input,
-optgroup,
-select,
-textarea {
+input {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
+}
+
+button {
+  cursor: pointer;
+  -webkit-appearance: button;
+  outline: 0;
 }
