@@ -8,11 +8,13 @@
       />
       <div class="contract_panel">
         <div class="employee" v-if="currentContractTab === 'employee'">
-          I'm employee contract tab
+            <ContractForm 
+              formOfferLabel="Employee minimum offer" 
+              :contractOffer="minimumEmployeeOffer"
+              @contractFormUpdate="onMinimumEmployeeOffer" 
+            />
         </div>
-        <div class="employer" v-if="currentContractTab === 'employer'">
-          I'm employer contract tab
-        </div>
+        <div class="employer" v-if="currentContractTab === 'employer'"></div>
       </div>
     </div>
   </BaseLayout>
@@ -21,12 +23,18 @@
 <script>
 import Vue from 'vue';
 
-import { BaseLayout, BaseTabs } from '@/components/shared';
+import ContractForm from './ContractForm';
+import {
+  BaseLayout,
+  BaseTabs,
+} from '@/components/shared';
+
 export default {
   name: 'NegotiationContract',
   components: {
     BaseLayout,
     BaseTabs,
+    ContractForm,
   },
   data() {
     return {
@@ -35,6 +43,8 @@ export default {
         { id: 'employer', title: 'Employer', active: false },
       ],
       currentContractTab: 'employee',
+      minimumEmployeeOffer: 0,
+      maximumEmployerOffer: 0,
     };
   },
   methods: {
@@ -46,6 +56,10 @@ export default {
       });
       this.currentContractTab = activeTab;
       this.contractTabs = updatedContractedTabs;
+    },
+
+    onMinimumEmployeeOffer(updatedOffer) {
+      this.minimumEmployeeOffer = updatedOffer;
     },
   },
 };

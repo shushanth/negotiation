@@ -4,7 +4,7 @@
     <input
       :class="{
         input_element: true,
-        'input_element--error': this.errors.value || false,
+        'input_element--error': (this.errors && this.errors.value) || false,
       }"
       @input="onInputChange"
       @change="onInputChange"
@@ -50,11 +50,11 @@ export default {
 .input {
   @include styles-flex(column);
   width: 100%;
-  margin: 10px 0;
+  margin: 0.5rem 0;
 
   &_element {
-    padding: 10px;
-    margin: 10px 0;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
     outline: 0;
 
     &--error {
