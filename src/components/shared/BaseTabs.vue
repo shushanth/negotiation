@@ -23,6 +23,7 @@ export default {
       required: true,
       type: Array,
     },
+    activeTab: String,
   },
   methods: {
     onTabChange(activeTab) {
@@ -38,9 +39,10 @@ export default {
 
   .tab {
     flex: 1;
-    padding: 1rem 0.5rem;
+    padding: 0.85rem;
     border: 0;
-    letter-spacing: .12rem;
+    letter-spacing: 0.12rem;
+    border-right: 1px solid $styles-color-gray-light;
     @include styles-flex--align(center, center);
     &--active {
       background: $styles-color-orange-light;

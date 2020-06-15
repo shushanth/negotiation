@@ -28,8 +28,8 @@ export default {
   }
 
   &_body {
-    border: 1px solid;
-    margin: 1rem 2rem;
+    border: 1px solid $styles-color-gray-light;
+    margin: 1rem 3rem;
     height: 100vh;
   }
 }
