@@ -8,11 +8,18 @@
       />
       <div class="contract_panel">
         <div class="employee" v-if="currentContractTab === 'employee'">
-            <ContractForm 
-              formOfferLabel="Employee minimum offer" 
-              :contractOffer="minimumEmployeeOffer"
-              @contractFormUpdate="onMinimumEmployeeOffer" 
-            />
+          <ContractForm
+            v-if="!doesEmployeeOfferLogged"
+            formOfferLabel="Employee minimum offer"
+            :contractOffer="minimumEmployeeOffer"
+            @contractFormUpdate="onMinimumEmployeeOffer"
+          />
+          <div class="offer_logged" v-if="doesEmployeeOfferLogged">
+            <BaseHeading level="h4" title="Employee offer :" />
+            <p>
+              {{ minimumEmployeeOffer }}
+            </p>
+          </div>
         </div>
         <div class="employer" v-if="currentContractTab === 'employer'"></div>
       </div>
@@ -24,16 +31,14 @@
 import Vue from 'vue';
 
 import ContractForm from './ContractForm';
-import {
-  BaseLayout,
-  BaseTabs,
-} from '@/components/shared';
+import { BaseLayout, BaseTabs, BaseHeading } from '@/components/shared';
 
 export default {
   name: 'NegotiationContract',
   components: {
     BaseLayout,
     BaseTabs,
+    BaseHeading,
     ContractForm,
   },
   data() {
@@ -45,6 +50,7 @@ export default {
       currentContractTab: 'employee',
       minimumEmployeeOffer: 0,
       maximumEmployerOffer: 0,
+      doesEmployeeOfferLogged: false,
     };
   },
   methods: {
@@ -57,9 +63,15 @@ export default {
       this.currentContractTab = activeTab;
       this.contractTabs = updatedContractedTabs;
     },
-
+    employeeOfferFormVisibility() {
+      if (this.doesEmployeeOfferLogged) {
+        return false;
+      }
+      return this.currentContractTab === 'employee';
+    },
     onMinimumEmployeeOffer(updatedOffer) {
       this.minimumEmployeeOffer = updatedOffer;
+      this.doesEmployeeOfferLogged = true;
     },
   },
 };
@@ -75,7 +87,20 @@ export default {
     padding: 1rem;
     @include styles-flex(column);
     @include styles-flex--align(center, center);
-    &_employee {
+    .employee {
+      @include styles-flex();
+      width: 100%;
+      .offer_logged {
+        @include styles-flex();
+        @include styles-flex--align(center, center);
+        padding: 0 1rem;
+        &:first-child {
+          flex: 1;
+        }
+        * {
+          padding-right: 0.5rem;
+        }
+      }
     }
 
     &_employer {

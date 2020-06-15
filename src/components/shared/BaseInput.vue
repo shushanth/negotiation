@@ -36,7 +36,11 @@ export default {
       const {
         target: { value },
       } = event;
-      this.$emit('onUpdate', value);
+      let inputValue = value;
+      if (this.type === 'number') {
+        inputValue = parseInt(value, 10);
+      }
+      this.$emit('onUpdate', inputValue);
     },
     onInputBlur() {
       this.$props.focusOut && this.$emit('blur');

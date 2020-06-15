@@ -39,19 +39,19 @@ export default {
     outline: 0;
     padding: 1rem;
     cursor: pointer;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
     &_color {
       &--primary {
-        background: $styles-color-blue--cloud;
+        background: $styles-color-orange;
       }
     }
     &--disabled {
       pointer-events: none !important;
-      background-color: $styles-color-blue--penguin;
+      background-color: $styles-color-orange-light;
     }
     &_size {
       &--small {
-        font-size: .8rem;
+        font-size: 0.8rem;
         font-weight: 500;
         padding: 0.5rem;
         color: #fff;

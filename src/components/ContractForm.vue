@@ -4,6 +4,7 @@
       type="number"
       :label="formOfferLabel"
       :value="contractOffer"
+      @onUpdate="onContractValueUpdate"
       :focusOut="true"
     />
     <BaseButton
@@ -11,16 +12,13 @@
       type="primary"
       size="small"
       @onClick="onContractFormUpdate"
-      :disabled="false"
+      :disabled="isContractFormValid()"
     />
-  </div>  
+  </div>
 </template>
 <script>
 import Vue from 'vue';
-import {
-  BaseInput,
-  BaseButton,
-} from '@/components/shared';
+import { BaseInput, BaseButton } from '@/components/shared';
 
 export default {
   name: 'ContractForm',
@@ -34,13 +32,20 @@ export default {
   },
   methods: {
     onContractFormUpdate() {
-
-    }
-  }
-}
+      this.$emit('contractFormUpdate', this.contractOfferValue);
+    },
+    onContractValueUpdate(updatedValue) {
+      this.contractOfferValue = updatedValue;
+    },
+    isContractFormValid() {
+      return !this.contractOfferValue;
+    },
+  },
+  data() {
+    return {
+      contractOfferValue: this.contractOffer,
+    };
+  },
+};
 </script>
-<style lang="scss">
-
-</style>
-
-
+<style lang="scss"></style>
