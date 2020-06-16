@@ -18,6 +18,7 @@
 </template>
 <script>
 import Vue from 'vue';
+
 import { BaseInput, BaseButton } from '@/components/shared';
 
 export default {

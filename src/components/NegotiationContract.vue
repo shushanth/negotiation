@@ -16,12 +16,16 @@
           />
           <div class="offer_logged" v-if="doesEmployeeOfferLogged">
             <BaseHeading level="h4" title="Employee offer :" />
-            <p>
-              {{ minimumEmployeeOffer }}
-            </p>
+            <p>{{ minimumEmployeeOffer }}</p>
           </div>
         </div>
-        <div class="employer" v-if="currentContractTab === 'employer'"></div>
+        <div class="employer" v-if="currentContractTab === 'employer'">
+          <ContractForm
+            formOfferLabel="Employer maximum offer"
+            :contractOffer="maximumEmployerOffer"
+            @contractFormUpdate="onMaximumEmployerOffer"
+          />
+        </div>
       </div>
     </div>
   </BaseLayout>
