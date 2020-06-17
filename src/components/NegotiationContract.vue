@@ -7,26 +7,35 @@
         @onTabSelect="onContractTabChange"
       />
       <div class="contract_panel">
-        <div class="employee" v-if="currentContractTab === 'employee'">
-          <ContractForm
-            v-if="!doesEmployeeOfferLogged"
-            formOfferLabel="Employee minimum offer"
-            :contractOffer="minimumEmployeeOffer"
-            @contractFormUpdate="onMinimumEmployeeOffer"
-          />
-          <div class="offer_logged" v-if="doesEmployeeOfferLogged">
-            <BaseHeading level="h4" title="Employee offer :" />
-            <p>{{ minimumEmployeeOffer }}</p>
-          </div>
-        </div>
-        <div class="employer" v-if="currentContractTab === 'employer'">
+        <div
+          class="contract_panel--form"
+          v-if="currentContractTab === 'employer'"
+        >
           <ContractForm
             formOfferLabel="Employer maximum offer"
             :contractOffer="maximumEmployerOffer"
             @contractFormUpdate="onMaximumEmployerOffer"
           />
         </div>
+        <div
+          class="contract_panel--form"
+          v-if="currentContractTab === 'employee'"
+        >
+          <ContractForm
+            v-if="!doesEmployeeOfferLogged"
+            formOfferLabel="Employee minimum offer"
+            :contractOffer="minimumEmployeeOffer"
+            @contractFormUpdate="onMinimumEmployeeOffer"
+          />
+        </div>
       </div>
+      <ContractResult
+        v-if="showContractResult"
+        :contractStatus="getContractResult"
+        :minimumOffer="minimumEmployeeOffer"
+        :maximumOffer="maximumEmployerOffer"
+        @onResultOkStatus="resetContractForm"
+      />
     </div>
   </BaseLayout>
 </template>
@@ -35,7 +44,13 @@
 import Vue from 'vue';
 
 import ContractForm from './ContractForm';
-import { BaseLayout, BaseTabs, BaseHeading } from '@/components/shared';
+import ContractResult from './ContractResult';
+import {
+  BaseLayout,
+  BaseTabs,
+  BaseHeading,
+  BaseModal,
+} from '@/components/shared';
 
 export default {
   name: 'NegotiationContract',
@@ -43,18 +58,21 @@ export default {
     BaseLayout,
     BaseTabs,
     BaseHeading,
+    BaseModal,
     ContractForm,
+    ContractResult,
   },
   data() {
     return {
-      contractTabs: [
-        { id: 'employee', title: 'Employee', active: true },
-        { id: 'employer', title: 'Employer', active: false },
-      ],
       currentContractTab: 'employee',
       minimumEmployeeOffer: 0,
       maximumEmployerOffer: 0,
       doesEmployeeOfferLogged: false,
+      doesEmployerOfferLogged: false,
+      contractTabs: [
+        { id: 'employee', title: 'Employee', active: true },
+        { id: 'employer', title: 'Employer', active: false },
+      ],
     };
   },
   methods: {
@@ -67,15 +85,33 @@ export default {
       this.currentContractTab = activeTab;
       this.contractTabs = updatedContractedTabs;
     },
-    employeeOfferFormVisibility() {
-      if (this.doesEmployeeOfferLogged) {
-        return false;
-      }
-      return this.currentContractTab === 'employee';
+    resetContractForm() {
+      
     },
     onMinimumEmployeeOffer(updatedOffer) {
       this.minimumEmployeeOffer = updatedOffer;
       this.doesEmployeeOfferLogged = true;
+      this.currentContractTab = 'employer';
+      this.onContractTabChange('employer');
+    },
+    onMaximumEmployerOffer(updatedOffer) {
+      this.maximumEmployerOffer = updatedOffer;
+      this.doesEmployerOfferLogged = true;
+      this.currentContractTab = 'employee';
+      this.onContractTabChange('employee');
+    },
+  },
+  computed: {
+    showContractResult() {
+      if (!this.minimumEmployeeOffer || !this.maximumEmployerOffer) {
+        return false;
+      }
+      return this.doesEmployerOfferLogged && this.doesEmployeeOfferLogged;
+    },
+    getContractResult() {
+      return this.minimumEmployeeOffer <= this.maximumEmployerOffer
+        ? 'Success!!'
+        : 'Failure!!';
     },
   },
 };
@@ -91,23 +127,12 @@ export default {
     padding: 1rem;
     @include styles-flex(column);
     @include styles-flex--align(center, center);
-    .employee {
-      @include styles-flex();
-      width: 100%;
-      .offer_logged {
+
+    &--form {
+      .employee_offer {
         @include styles-flex();
         @include styles-flex--align(center, center);
-        padding: 0 1rem;
-        &:first-child {
-          flex: 1;
-        }
-        * {
-          padding-right: 0.5rem;
-        }
       }
-    }
-
-    &_employer {
     }
   }
 }
