@@ -2,7 +2,7 @@
   <div class="contract_result">
     <BaseModal :title="contractStatus" @onResultOk="onResultOkStatus">
       <div class="result_content">
-        <p>Employee minimum offer: {{ minimumOffer }}</p>
+        <p>Employee minimum expected salary: {{ minimumExpectedSalary }}</p>
         <p>Employer maximum offer: {{ maximumOffer }}</p>
       </div>
     </BaseModal>
@@ -20,7 +20,7 @@ export default {
   },
   props: {
     contractStatus: String,
-    minimumOffer: Number,
+    minimumExpectedSalary: Number,
     maximumOffer: Number,
   },
   methods: {

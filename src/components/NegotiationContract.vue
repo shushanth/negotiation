@@ -22,17 +22,17 @@
           v-if="currentContractTab === 'employee'"
         >
           <ContractForm
-            v-if="!doesEmployeeOfferLogged"
-            formOfferLabel="Employee minimum offer"
-            :contractOffer="minimumEmployeeOffer"
-            @contractFormUpdate="onMinimumEmployeeOffer"
+            v-if="!doesEmployeeSalaryLogged"
+            formOfferLabel="Employee minimum expected salary"
+            :contractOffer="minimumExpectedSalary"
+            @contractFormUpdate="onminimumExpectedSalary"
           />
         </div>
       </div>
       <ContractResult
         v-if="showContractResult"
         :contractStatus="getContractResult"
-        :minimumOffer="minimumEmployeeOffer"
+        :minimumOffer="minimumExpectedSalary"
         :maximumOffer="maximumEmployerOffer"
         @onResultOkStatus="resetContractForm"
       />
@@ -65,9 +65,9 @@ export default {
   data() {
     return {
       currentContractTab: 'employee',
-      minimumEmployeeOffer: 0,
+      minimumExpectedSalary: 0,
       maximumEmployerOffer: 0,
-      doesEmployeeOfferLogged: false,
+      doesEmployeeSalaryLogged: false,
       doesEmployerOfferLogged: false,
       contractTabs: [
         { id: 'employee', title: 'Employee', active: true },
@@ -87,18 +87,18 @@ export default {
     },
     resetContractForm() {
       this.currentContractTab = 'employee';
-      this.minimumEmployeeOffer = 0;
+      this.minimumExpectedSalary = 0;
       this.maximumEmployerOffer = 0;
-      this.doesEmployeeOfferLogged = false;
+      this.doesEmployeeSalaryLogged = false;
       this.doesEmployerOfferLogged = false;
             contractTabs: [
         { id: 'employee', title: 'Employee', active: true },
         { id: 'employer', title: 'Employer', active: false },
       ];
     },
-    onMinimumEmployeeOffer(updatedOffer) {
-      this.minimumEmployeeOffer = updatedOffer;
-      this.doesEmployeeOfferLogged = true;
+    onminimumExpectedSalary(updatedOffer) {
+      this.minimumExpectedSalary = updatedOffer;
+      this.doesEmployeeSalaryLogged = true;
       this.currentContractTab = 'employer';
       this.onContractTabChange('employer');
     },
@@ -111,13 +111,13 @@ export default {
   },
   computed: {
     showContractResult() {
-      if (!this.minimumEmployeeOffer || !this.maximumEmployerOffer) {
+      if (!this.minimumExpectedSalary || !this.maximumEmployerOffer) {
         return false;
       }
-      return this.doesEmployerOfferLogged && this.doesEmployeeOfferLogged;
+      return this.doesEmployerOfferLogged && this.doesEmployeeSalaryLogged;
     },
     getContractResult() {
-      return this.minimumEmployeeOffer <= this.maximumEmployerOffer
+      return this.minimumExpectedSalary <= this.maximumEmployerOffer
         ? 'Success!!'
         : 'Failure!!';
     },
