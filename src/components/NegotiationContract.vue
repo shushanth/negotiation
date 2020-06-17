@@ -86,7 +86,15 @@ export default {
       this.contractTabs = updatedContractedTabs;
     },
     resetContractForm() {
-      
+      this.currentContractTab = 'employee';
+      this.minimumEmployeeOffer = 0;
+      this.maximumEmployerOffer = 0;
+      this.doesEmployeeOfferLogged = false;
+      this.doesEmployerOfferLogged = false;
+            contractTabs: [
+        { id: 'employee', title: 'Employee', active: true },
+        { id: 'employer', title: 'Employer', active: false },
+      ];
     },
     onMinimumEmployeeOffer(updatedOffer) {
       this.minimumEmployeeOffer = updatedOffer;
