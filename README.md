@@ -12,7 +12,7 @@ yarn build
 ```
 
 Builds the app for production to the `dist` folder.<br />
-It correctly bundles Vue for production 
+Bundles files for production 
 
 
 ### Usage
