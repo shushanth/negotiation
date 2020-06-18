@@ -100,8 +100,8 @@ export default {
         { id: 'employer', title: 'Employer', active: false },
       ];
     },
-    onminimumExpectedSalary(updatedOffer) {
-      this.minimumExpectedSalary = updatedOffer;
+    onminimumExpectedSalary(updatedSalary) {
+      this.minimumExpectedSalary = updatedSalary;
       this.doesEmployeeSalaryLogged = true;
       this.currentContractTab = 'employer';
       this.onContractTabChange('employer');
@@ -122,8 +122,8 @@ export default {
     },
     getContractResult() {
       return this.minimumExpectedSalary <= this.maximumEmployerOffer
-        ? 'Success!!'
-        : 'Failure!!';
+        ? 'SUCCESS!!'
+        : 'FAILURE!!';
     },
   },
   mounted() {
