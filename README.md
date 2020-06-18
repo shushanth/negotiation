@@ -38,6 +38,7 @@ Launches the test runner in the interactive watch mode.<br />
 
 
 #### Improvements to be done.
+- Handling decimal values for the entered offers.
 - Api and more mock tests.
 - More intuitive design.
 
