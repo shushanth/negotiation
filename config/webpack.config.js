@@ -22,7 +22,6 @@ module.exports = {
     extensions: ['.vue', '.js', '.json'],
     alias: {
       styles: resolvePathDir('src/assets/styles/'),
-      '@/store': resolvePathDir('src/store/'),
       '@/components': resolvePathDir('src/components/'),
       '@/utils': resolvePathDir('src/utils/'),
     },

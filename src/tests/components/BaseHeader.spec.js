@@ -15,12 +15,12 @@ describe('BaseHeader.vue', () => {
   })
 
   it('should match passed props', () => {
-    const baseButtonProps = mountComponentWithProps(BaseHeader, {
+    const baseHeaderProps = mountComponentWithProps(BaseHeader, {
       propsData: {
         headerTitle: 'negotiation',
       },
     }).props()
-    expect(baseButtonProps.headerTitle).toBeDefined()
-    expect(baseButtonProps.headerTitle).toEqual('negotiation')
+    expect(baseHeaderProps.headerTitle).toBeDefined()
+    expect(baseHeaderProps.headerTitle).toEqual('negotiation')
   })
 })

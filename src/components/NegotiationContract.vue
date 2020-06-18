@@ -34,6 +34,7 @@
         :contractStatus="getContractResult"
         :minimumOffer="minimumExpectedSalary"
         :maximumOffer="maximumEmployerOffer"
+        :temperatureInLondon="temperatureInLondon"
         @onResultOkStatus="resetContractForm"
       />
     </div>
@@ -51,6 +52,8 @@ import {
   BaseHeading,
   BaseModal,
 } from '@/components/shared';
+
+import { httpService } from '../api/httpService';
 
 export default {
   name: 'NegotiationContract',
@@ -73,6 +76,7 @@ export default {
         { id: 'employee', title: 'Employee', active: true },
         { id: 'employer', title: 'Employer', active: false },
       ],
+      temperatureInLondon: null,
     };
   },
   methods: {
@@ -122,6 +126,13 @@ export default {
         : 'Failure!!';
     },
   },
+  mounted() {
+    httpService('GET', 'London', (temparature) => {
+      this.temperatureInLondon = temparature
+    }, (error) => {
+      throw error;
+    });
+  }
 };
 </script>
 
