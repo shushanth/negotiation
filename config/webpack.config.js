@@ -63,7 +63,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       showErrors: true,
       cache: true,
-      title: 'loan calculator',
       template: resolvePathDir('./src/index.html'),
     }),
   ],
