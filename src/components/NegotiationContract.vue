@@ -32,7 +32,7 @@
       <ContractResult
         v-if="showContractResult"
         :contractStatus="getContractResult"
-        :minimumOffer="minimumExpectedSalary"
+        :minimumExpectedSalary="minimumExpectedSalary"
         :maximumOffer="maximumEmployerOffer"
         :temperatureInLondon="temperatureInLondon"
         @onResultOkStatus="resetContractForm"
